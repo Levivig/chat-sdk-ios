@@ -51,17 +51,9 @@
 
         _timeLabel.textColor = [UIColor lightGrayColor];
         _timeLabel.userInteractionEnabled = NO;
+        [_timeLabel setHidden:true];
         
         [self.contentView addSubview:_timeLabel];
-
-        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(bTimeLabelPadding, 0, 0, 0)];
-        _nameLabel.userInteractionEnabled = NO;
-        
-        _nameLabel.font = [UIFont boldSystemFontOfSize:bDefaultUserNameLabelSize];
-        if(BChatSDK.config.messageNameFont) {
-            _nameLabel.font = BChatSDK.config.messageNameFont;
-        }
-        [self.contentView addSubview:_nameLabel];
 
         _readMessageImageView = [[UIImageView alloc] initWithFrame:CGRectMake(bTimeLabelPadding, 0, 0, 0)];
         [self setReadStatus:bMessageReadStatusNone];
@@ -182,14 +174,6 @@
         }
     }
     
-    _nameLabel.text = _message.userModel.name;
-
-//    
-//    // We only want to show the name label if the previous message was posted by someone else and if this is enabled in the thread
-//    // Or if the message is mine...
-    
-    _nameLabel.hidden = ![_message showUserNameLabelForPosition:position];
-    
     // Hide the read receipt view if this is a public thread or if read receipts are disabled
     _readMessageImageView.hidden = _message.thread.type.intValue & bThreadFilterPublic || !BChatSDK.readReceipt;
 }
@@ -205,8 +189,6 @@
                                          margin.top,
                                          self.bubbleWidth,
                                          self.bubbleHeight)];
-    
-    [_nameLabel setViewFrameY:self.bubbleHeight + 5];
     
     // #1 Because of the text view insets we want the cellContentView of the
     // text cell to extend to the right edge of the bubble
@@ -261,26 +243,20 @@
     [_readMessageImageView setViewFrameY:_timeLabel.fh * 2.0 / 3.0];
     
     // Make the width less by the profile picture width means the name and profile picture are inline
-    [_nameLabel setViewFrameWidth:self.fw - bTimeLabelPadding * 2.0 - _profilePicture.fw];
-    [_nameLabel setViewFrameHeight:self.nameHeight];
     
     // Layout the bubble
     // The bubble is translated the "margin" to the right of the profile picture
     if (!isMine) {
         [_profilePicture setViewFrameX:_profilePicture.hidden ? 0 : self.profilePicturePadding];
         [bubbleImageView setViewFrameX:self.bubbleMargin.left + _profilePicture.fx + _profilePicture.fw + xMargin];
-        [_nameLabel setViewFrameX:bTimeLabelPadding];
         
         _timeLabel.textAlignment = NSTextAlignmentRight;
-        _nameLabel.textAlignment = NSTextAlignmentLeft;
     }
     else {
         [_profilePicture setViewFrameX:_profilePicture.hidden ? self.contentView.fw : self.contentView.fw - _profilePicture.fw - self.profilePicturePadding];
         [bubbleImageView setViewFrameX:_profilePicture.fx - self.bubbleWidth - self.bubbleMargin.right - xMargin];
-        //[_nameLabel setViewFrameX: bTimeLabelPadding];
         
         _timeLabel.textAlignment = NSTextAlignmentLeft;
-        _nameLabel.textAlignment = NSTextAlignmentRight;
     }
     
 //        self.bubbleImageView.layer.borderColor = UIColor.redColor.CGColor;
@@ -473,11 +449,6 @@
 }
 
 +(float) nameHeight: (id<PElmMessage>) message {
-    bMessagePos pos = [message messagePosition];
-    // Do we want to show the users name label
-    if ([message showUserNameLabelForPosition:pos]) {
-        return bUserNameHeight;
-    }
     return 0;
 }
 
@@ -487,7 +458,7 @@
 
 +(float) bubbleWidth: (id<PElmMessage>) message maxWidth: (float) maxWidth {
     UIEdgeInsets padding = [self bubblePadding: message];
-    return [BMessageCell contentWidth: message maxWidth:maxWidth] + padding.left + padding.right + bTailSize;
+    return [BMessageCell contentWidth: message maxWidth:maxWidth] + padding.left + padding.right;
 }
 
 // The margin outside the bubble

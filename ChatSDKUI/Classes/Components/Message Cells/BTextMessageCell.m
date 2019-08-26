@@ -42,8 +42,6 @@
             textView.linkTextAttributes = @{NSForegroundColorAttributeName: linkColor};
         }
         
-//        textView.contentInset = UIEdgeInsetsMake(-9.0, -5.0, 0.0, 0.0);
-        
         [self.bubbleImageView addSubview:textView];
         
     }
@@ -78,7 +76,7 @@
 }
 
 +(NSValue *) messageBubblePadding: (id<PElmMessage>) message {
-    return [NSValue valueWithUIEdgeInsets:UIEdgeInsetsMake(8.0, 9.0, 8.0, 9.0)];
+    return [NSValue valueWithUIEdgeInsets:UIEdgeInsetsMake(9.0, 8.0, 9.0, 8.0)];
 }
 
 #pragma Text size
@@ -90,7 +88,7 @@
 +(float) getText: (NSString *) text heightWithWidth: (float) width {
     return [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
                               options:NSStringDrawingUsesLineFragmentOrigin
-                           attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:bDefaultFontSize]}
+                           attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:bDefaultFontSize-2]}
                               context:Nil].size.height;
 }
 

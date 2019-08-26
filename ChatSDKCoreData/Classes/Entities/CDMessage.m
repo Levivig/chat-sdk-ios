@@ -121,18 +121,6 @@
 
 // This helps us know if we want to show it in the thread
 - (BOOL)showUserNameLabelForPosition: (bMessagePos) position {
-    if (self.senderIsMe) {
-        return NO;
-    }
-
-    if ((self.thread.type.intValue & bThreadFilterPublic || self.thread.users.count > 2) && position & bMessagePosLast) {
-        return YES;
-    }
-
-    if (!(position & bMessagePosLast)) {
-        return NO;
-    }
-
     return NO;
 }
 

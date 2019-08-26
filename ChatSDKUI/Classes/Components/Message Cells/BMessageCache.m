@@ -45,20 +45,7 @@ static BMessageCache * cache;
     BOOL isMine = [message senderIsMe];
     
     NSString * bubbleImageName = @"";
-    switch (pos) {
-        case bMessagePosFirst:
-            bubbleImageName = @"chat_bubble_right_0S.png";
-            break;
-        case bMessagePosMiddle:
-            bubbleImageName = @"chat_bubble_right_SS.png";
-            break;
-        case bMessagePosLast:
-            bubbleImageName = @"chat_bubble_right_ST.png";
-            break;
-        case bMessagePosSingle:
-            bubbleImageName = @"chat_bubble_right_0T.png";
-            break;
-    }
+    bubbleImageName = @"chat_bubble_me_circle";
     
     // Color
     NSString * colorString = Nil;

@@ -37,8 +37,7 @@
     UILabel * _timeLabel;
     
     UIImageView * _readMessageImageView;
-    
-    UILabel * _nameLabel;
+
     UIActivityIndicatorView * _activityIndicator;
     
     id<PElmMessage> _message;

@@ -74,7 +74,6 @@
                                          self.bubbleWidth,
                                          self.bubbleHeight)];
     
-    _nameLabel.frame = CGRectZero;
     _timeLabel.frame = CGRectZero;
     _timeLabel.hidden = YES;
     
