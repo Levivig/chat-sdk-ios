@@ -138,17 +138,6 @@
     if (position & bMessagePosLast) {
         if (message.userModel) {
             [_profilePicture loadAvatar:message.userModel];
-            
-//            if(message.userModel.imageURL) {
-//                [_profilePicture sd_setImageWithURL:[NSURL URLWithString: message.userModel.imageURL]
-//                                   placeholderImage:message.userModel.defaultImage options:SDWebImageLowPriority & SDWebImageScaleDownLargeImages];
-//            }
-//            else if (message.userModel.imageAsImage) {
-//                [_profilePicture setImage:message.userModel.imageAsImage];
-//            }
-//            else {
-//                [_profilePicture setImage:message.userModel.defaultImage];
-//            }
         }
         else {
             // If the user doesn't have a profile picture set the default profile image
@@ -203,7 +192,7 @@
         float ppPadding = self.profilePicturePadding;
 
         [_profilePicture setFrame:CGRectMake(ppPadding,
-                                             (self.cellHeight - ppDiameter - self.nameHeight)/2.0,
+                                             (self.cellHeight - ppDiameter - self.nameHeight - margin.bottom),
                                              ppDiameter,
                                              ppDiameter)];
         
@@ -563,7 +552,7 @@
 }
 
 +(NSNumber *) messageProfilePicturePadding: (id<PElmMessage>) message {
-    return @(3);
+    return @(16);
 }
 
 

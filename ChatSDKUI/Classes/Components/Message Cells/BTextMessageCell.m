@@ -88,7 +88,7 @@
 +(float) getText: (NSString *) text heightWithWidth: (float) width {
     return [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
                               options:NSStringDrawingUsesLineFragmentOrigin
-                           attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:bDefaultFontSize-2]}
+                           attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:bDefaultFontSize]}
                               context:Nil].size.height;
 }
 
@@ -107,10 +107,11 @@
     if (text) {
         UIFont * font = [UIFont systemFontOfSize:bDefaultFontSize];
         if (font) {
-            return [text boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX)
+            float width = [text boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX)
                                       options:NSStringDrawingUsesLineFragmentOrigin
                                    attributes:@{NSFontAttributeName: font}
                                       context:Nil].size.width;
+            return MAX(width, 12);
         }
     }
     return 0;

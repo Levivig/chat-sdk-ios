@@ -23,11 +23,11 @@
 #define bReadReceiptTopPadding 10
 
 #define bTimeLabelPadding 10
-#define bMaxMessageWidth 270
-#define bMaxMessageHeight 300
+#define bMaxMessageWidth [[UIScreen mainScreen] bounds].size.width * 2.0/3.0
+#define bMaxMessageHeight [[UIScreen mainScreen] bounds].size.height * 1.0/3.0
 #define bMinMessageHeight 50
 #define bUserNameHeight 25
-#define bProfilePictureDiameter 36
+#define bProfilePictureDiameter 30
 #define bMessageMarginX 70 // So it doesn't overlap the time stamp
 
 @interface BMessageCell : UITableViewCell<BMessageDelegate> {
@@ -37,9 +37,8 @@
     UILabel * _timeLabel;
     
     UIImageView * _readMessageImageView;
-
-    UIActivityIndicatorView * _activityIndicator;
     
+    UIActivityIndicatorView * _activityIndicator;
     id<PElmMessage> _message;
 }
 

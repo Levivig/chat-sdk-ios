@@ -16,6 +16,7 @@
 
 @interface BTextInputView : UIView<UITextViewDelegate, PSendBar> {
     UIButton * _optionsButton;
+    UIButton * _cameraButton;
     UILabel * _placeholderLabel;
     UIColor * _placeholderColor;
     UIColor * _textColor;
@@ -39,6 +40,7 @@
 @property (nonatomic, readwrite) NSInteger maxLines;
 @property (nonatomic, readwrite) NSInteger minLines;
 @property (nonatomic, readwrite) UIButton * optionsButton;
+@property (nonatomic, readwrite) UIButton * cameraButton;
 @property (nonatomic, readwrite) UIButton * sendButton;
 @property (nonatomic, readonly) UILabel * placeholderLabel;
 

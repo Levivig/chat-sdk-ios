@@ -222,9 +222,6 @@
     if (videoEnabled) {
         [options addObject:[[BMediaChatOption alloc] initWithType:bPictureTypeAlbumVideo]];
     }
-    if (locationEnabled) {
-        [options addObject:[[BLocationChatOption alloc] init]];
-    }
     
     for(BChatOption * option in _additionalChatOptions) {
         [options addObject:option];

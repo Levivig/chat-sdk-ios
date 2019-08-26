@@ -103,23 +103,11 @@
     
     _titleLabel.text = [NSBundle t: bThread];
     _titleLabel.textAlignment = NSTextAlignmentCenter;
-    _titleLabel.font = [UIFont boldSystemFontOfSize:_titleLabel.font.pointSize];
+    _titleLabel.font = [UIFont fontWithName:@"Poppins-Bold" size:_titleLabel.font.pointSize];
     
     [containerView addSubview:_titleLabel];
     _titleLabel.keepInsets.equal = 0;
-    _titleLabel.keepBottomInset.equal = 15;
-    
-    _subtitleLabel = [[UILabel alloc] init];
-    _subtitleLabel.textAlignment = NSTextAlignmentCenter;
-    _subtitleLabel.font = [UIFont italicSystemFontOfSize:12.0];
-    _subtitleLabel.textColor = [UIColor lightGrayColor];
-    
-    [containerView addSubview:_subtitleLabel];
-    
-    _subtitleLabel.keepHeight.equal = 15;
-    _subtitleLabel.keepWidth.equal = 200;
-    _subtitleLabel.keepBottomInset.equal = 0;
-    _subtitleLabel.keepHorizontalCenter.equal = 0.5;
+    _titleLabel.keepBottomInset.equal = 0;
     
     [self.navigationItem setTitleView:containerView];
 }
@@ -272,11 +260,6 @@
     tableInsets.bottom += bTableViewBottomMargin;
     tableView.contentInset = tableInsets;
     
-    // Add the refresh control - drag to load more messages
-    _refreshControl = [[UIRefreshControl alloc] init];
-    [_refreshControl addTarget:self action:@selector(tableRefreshed) forControlEvents:UIControlEventValueChanged];
-    [tableView addSubview:_refreshControl];
-    
     [self setupTextInputView];
 
     [self registerMessageCells];
@@ -287,18 +270,6 @@
 
     [self setupKeyboardOverlay];
 
-}
-
--(void) tableRefreshed {
-    if ([delegate respondsToSelector:@selector(loadMoreMessages)]) {
-        [delegate loadMoreMessages].thenOnMain(^id(id success) {
-            [_refreshControl endRefreshing];
-            return Nil;
-        }, ^id(NSError * error) {
-            [_refreshControl endRefreshing];
-            return Nil;
-        });
-    }
 }
 
 -(void) startTypingWithMessage: (NSString *) message {

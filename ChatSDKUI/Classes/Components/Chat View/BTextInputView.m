@@ -28,6 +28,7 @@
 @synthesize optionsButton = _optionsButton;
 @synthesize sendButton = _sendButton;
 @synthesize placeholderLabel = _placeholderLabel;
+@synthesize cameraButton = _cameraButton;
 
 -(instancetype) initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -48,6 +49,10 @@
         // Create an options button which shows an action sheet
         _optionsButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self addSubview:_optionsButton];
+        
+        _cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_cameraButton addTarget:self action:@selector(cameraButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_cameraButton];
 
         _textView = [[HKWTextView alloc] init];
         // If we use the mentions functionality we need to set the external delegate
@@ -60,13 +65,13 @@
         _sendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [self addSubview: _sendButton];
         
-        [_optionsButton setImage:[NSBundle uiImageNamed:@"icn_24_options.png"] forState:UIControlStateNormal];
-        [_optionsButton setImage:[NSBundle uiImageNamed:@"icn_24_keyboard.png"] forState:UIControlStateSelected];
+        [_optionsButton setImage:[NSBundle uiImageNamed:@"cc_plus_icon@3x.png"] forState:UIControlStateNormal];
+        [_optionsButton setImage:[NSBundle uiImageNamed:@"cc_plus_icon@3x.png"] forState:UIControlStateSelected];
         
-        [_optionsButton addTarget:self action:@selector(optionsButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [_sendButton setImage:[NSBundle uiImageNamed:@"send_icon@3x.png"] forState:UIControlStateNormal];
         
-        NSString * sendButtonTitle = [NSBundle t:bSend];
-        [_sendButton setTitle:sendButtonTitle forState:UIControlStateNormal];
+        [_cameraButton setImage:[NSBundle uiImageNamed:@"camera_icon@3x.png"] forState:UIControlStateNormal];
+        [_cameraButton setImage:[NSBundle uiImageNamed:@"camera_icon@3x.png"] forState:UIControlStateSelected];
         
         [_sendButton addTarget:self action:@selector(sendButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [_sendButton addTarget:self action:@selector(sendButtonHeld) forControlEvents:UIControlEventTouchDown];
@@ -105,9 +110,15 @@
         _sendButton.keepHeight.equal = 40;
         _sendButton.keepWidth.equal = 48;
         _sendButton.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        _cameraButton.keepRightOffsetTo(_sendButton).equal = bMargin / 2.0;
+        _cameraButton.keepBottomInset.equal = 0;
+        _cameraButton.keepHeight.equal = 40;
+        _cameraButton.keepWidth.equal = 40;
+        _cameraButton.translatesAutoresizingMaskIntoConstraints = NO;
                 
         _textView.keepLeftOffsetTo(_optionsButton).equal = bMargin;
-        _textView.keepRightOffsetTo(_sendButton).equal = bMargin;
+        _textView.keepRightOffsetTo(_cameraButton).equal = bMargin;
         _textView.keepBottomInset.equal = bMargin;
         _textView.keepTopInset.equal = bMargin;
         _textView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -126,7 +137,7 @@
         
         [_placeholderLabel setText:[NSBundle t:bWriteSomething]];
         
-        [self setFont:[UIFont systemFontOfSize:bFontSize]];
+        [self setFont:[UIFont fontWithName:@"Poppins-Regular" size:14.0]];
         
         __weak __typeof__(self) weakSelf = self;
         _internetConnectionHook = [BHook hook:^(NSDictionary * data) {
@@ -176,8 +187,8 @@
                      forState:UIControlStateNormal];
     }
     else {
-        [_sendButton setTitle:[NSBundle t:bSend] forState:UIControlStateNormal];
-        [_sendButton setImage:Nil forState:UIControlStateNormal];
+        [_sendButton setTitle:Nil forState:UIControlStateNormal];
+        [_sendButton setImage:[NSBundle uiImageNamed:@"send_icon@3x.png"] forState:UIControlStateNormal];
     }
 }
 
@@ -314,19 +325,10 @@
     [[BAudioManager sharedManager] finishRecording];
 }
 
--(void) optionsButtonPressed {
-    if (_optionsButton.selected) {
-        [self hideOptions];
-    }
-    else {
-        [self showOptions];
-    }
-}
-
 -(void) showOptions {
     if (_sendBarDelegate && [_sendBarDelegate respondsToSelector:@selector(showOptions)]) {
         if([_sendBarDelegate showOptions]) {
-            _optionsButton.selected = YES;
+            _cameraButton.selected = YES;
         }
     }
 }
@@ -334,8 +336,17 @@
 -(void) hideOptions {
     if (_sendBarDelegate && [_sendBarDelegate respondsToSelector:@selector(showOptions)]) {
         if([_sendBarDelegate hideOptions]) {
-            _optionsButton.selected = NO;
+            _cameraButton.selected = NO;
         }
+    }
+}
+
+-(void) cameraButtonTapped {
+    if (_cameraButton.selected) {
+        [self hideOptions];
+    }
+    else {
+        [self showOptions];
     }
 }
 

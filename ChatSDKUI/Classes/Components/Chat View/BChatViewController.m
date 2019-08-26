@@ -49,24 +49,26 @@
 
 -(void) updateSubtitle {
     
-    if (BChatSDK.config.userChatInfoEnabled) {
-        [self setSubtitle:[NSBundle t: bTapHereForContactInfo]];
-    }
+    [self setSubtitle:nil];
     
-    if (_thread.type.intValue & bThreadFilterGroup) {
-        [self setSubtitle:_thread.memberListString];
-    } else {
-        // 1-to-1 Chat
-        if (_thread.otherUser.online.boolValue) {
-            [self setSubtitle:[NSBundle t: bOnline]];
-        } else if(BChatSDK.lastOnline) {
-            __weak __typeof__(self) weakSelf = self;
-            [BChatSDK.lastOnline getLastOnlineForUser:_thread.otherUser].thenOnMain(^id(NSDate * date) {
-                [weakSelf setSubtitle:date.lastSeenTimeAgo];
-                return Nil;
-            }, Nil);
-        }
-    }
+//    if (BChatSDK.config.userChatInfoEnabled) {
+//        [self setSubtitle:[NSBundle t: bTapHereForContactInfo]];
+//    }
+//
+//    if (_thread.type.intValue & bThreadFilterGroup) {
+//        [self setSubtitle:_thread.memberListString];
+//    } else {
+//        // 1-to-1 Chat
+//        if (_thread.otherUser.online.boolValue) {
+//            [self setSubtitle:[NSBundle t: bOnline]];
+//        } else if(BChatSDK.lastOnline) {
+//            __weak __typeof__(self) weakSelf = self;
+//            [BChatSDK.lastOnline getLastOnlineForUser:_thread.otherUser].thenOnMain(^id(NSDate * date) {
+//                [weakSelf setSubtitle:date.lastSeenTimeAgo];
+//                return Nil;
+//            }, Nil);
+//        }
+//    }
 }
 
 -(void) addObservers {
