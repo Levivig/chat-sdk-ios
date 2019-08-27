@@ -269,10 +269,10 @@
 -(void) showProfileView {
     
     // Cannot view our own profile this way
-    if (!_message.userModel.isMe) {
-        UIViewController * profileView = [BChatSDK.ui profileViewControllerWithUser:_message.userModel];
-        [self.navigationController pushViewController:profileView animated:YES];
-    }
+//    if (!_message.userModel.isMe) {
+//        UIViewController * profileView = [BChatSDK.ui profileViewControllerWithUser:_message.userModel];
+//        [self.navigationController pushViewController:profileView animated:YES];
+//    }
 }
 
 -(UIView *) cellContentView {

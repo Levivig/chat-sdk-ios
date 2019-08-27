@@ -231,14 +231,14 @@
 }
 
 -(void) navigationBarTapped {
-    _usersViewLoaded = YES;
-    NSMutableArray * users = [NSMutableArray arrayWithArray: _thread.model.users.allObjects];
-    [users removeObject:BChatSDK.currentUser];
-    
-    UINavigationController * nvc = [BChatSDK.ui usersViewNavigationControllerWithThread:_thread
-                                                                    parentNavigationController:self.navigationController];
-    
-    [self presentViewController:nvc animated:YES completion:nil];
+//    _usersViewLoaded = YES;
+//    NSMutableArray * users = [NSMutableArray arrayWithArray: _thread.model.users.allObjects];
+//    [users removeObject:BChatSDK.currentUser];
+//    
+//    UINavigationController * nvc = [BChatSDK.ui usersViewNavigationControllerWithThread:_thread
+//                                                                    parentNavigationController:self.navigationController];
+//    
+//    [self presentViewController:nvc animated:YES completion:nil];
     
 }
 
