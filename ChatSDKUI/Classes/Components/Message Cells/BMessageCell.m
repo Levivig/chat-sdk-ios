@@ -135,7 +135,7 @@
     _profilePicture.hidden = self.profilePictureHidden;
     
     // We only want to show the user picture if it is the latest message from the user
-    if (position & bMessagePosLast) {
+    if (_message.senderIsMe != _message.nextMessage.senderIsMe || _message.nextMessage == nil) {
         if (message.userModel) {
             [_profilePicture loadAvatar:message.userModel];
         }
