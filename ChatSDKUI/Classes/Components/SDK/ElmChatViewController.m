@@ -645,7 +645,7 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    return FALSE;
 }
 
 // This only works for iOS8
