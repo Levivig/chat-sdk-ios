@@ -59,6 +59,8 @@
     BOOL _observersAdded;
     BOOL _keyboardVisible;
     
+    CGRect _keyboardFrame;
+    
     BMessageManager * _messageManager;
     BOOL _loadingMessages;
     
