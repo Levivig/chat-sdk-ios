@@ -59,7 +59,7 @@
         
     [imageView sd_setImageWithURL:message.imageURL
                  placeholderImage:placeholder
-                          options:SDWebImageLowPriority & SDWebImageScaleDownLargeImages
+                          options:SDWebImageLowPriority
                         completed:nil];
 }
 

@@ -103,6 +103,7 @@
     
     _titleLabel.text = [NSBundle t: bThread];
     _titleLabel.textAlignment = NSTextAlignmentCenter;
+    _titleLabel.textColor = [UIColor blackColor];
     _titleLabel.font = [UIFont fontWithName:@"Poppins-Bold" size:_titleLabel.font.pointSize];
     
     [containerView addSubview:_titleLabel];
