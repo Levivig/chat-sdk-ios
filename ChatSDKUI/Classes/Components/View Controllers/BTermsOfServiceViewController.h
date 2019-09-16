@@ -12,8 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BTermsOfServiceViewController : UIViewController
 
-@property (nonatomic, strong) UIWebView * webView;
-
 - (void)load;
 - (void)dismiss;
 
