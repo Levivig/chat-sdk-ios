@@ -269,12 +269,14 @@
 
 // Open the users profile
 -(void) showProfileView {
-    
-    // Cannot view our own profile this way
-//    if (!_message.userModel.isMe) {
-//        UIViewController * profileView = [BChatSDK.ui profileViewControllerWithUser:_message.userModel];
-//        [self.navigationController pushViewController:profileView animated:YES];
-//    }
+    if (!_message.userModel.isMe) {
+        id<PUser> user = [BChatSDK.db fetchEntityWithID:_message.userModel.entityID withType:bUserEntity];
+        if ([[[user meta] objectForKey:@"isAdmin"] boolValue]) {
+            [[[BChatSDK shared] messageSelectorDelegate] didSelectAdminUser];
+        } else {
+            [[[BChatSDK shared] messageSelectorDelegate] didSelectUserWithEntityId:_message.userModel.entityID];
+        }
+    }
 }
 
 -(UIView *) cellContentView {

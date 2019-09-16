@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <ChatSDK/PNetworkAdapter.h>
+#import <ChatSDK/PMessageSelectorDelegate.h>
 
 @class BConfiguration;
 @class RXPromise;
@@ -31,6 +32,7 @@
 @property (nonatomic, readwrite) id<PInterfaceAdapter> interfaceAdapter;
 @property (nonatomic, readwrite) id<PStorageAdapter> storageAdapter;
 @property (nonatomic, readwrite) id<PNetworkAdapter> networkAdapter;
+@property (nonatomic, weak) id<PMessageSelectorDelegate> messageSelectorDelegate;
 
 +(BChatSDK *) shared;
 +(BConfiguration *) config;
