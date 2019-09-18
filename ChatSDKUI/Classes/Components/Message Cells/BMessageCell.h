@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <ChatSDK/BMessageDelegate.h>
 #import <ChatSDK/PElmMessage.h>
+#import <ChatSDK/ReactionView.h>
 
 // Size of the speech bubble tail
 #define bTailSize 5.0
@@ -45,6 +46,9 @@
 @property (nonatomic, readwrite) UIImageView * bubbleImageView;
 @property (nonatomic, readwrite) id<PElmMessage> message;
 @property (nonatomic, readwrite) UIImageView * profilePicture;
+@property (nonatomic, strong) NSDictionary *reactions;
+@property (nonatomic) BOOL showEmojiPicker;
+@property (nonatomic, readwrite) ReactionView *reactionView;
 
 // Let us open the user profile view
 @property (nonatomic, weak) UINavigationController * navigationController;

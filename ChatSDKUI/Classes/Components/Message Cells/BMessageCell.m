@@ -64,6 +64,16 @@
         [_profilePicture addGestureRecognizer:profileTouched];
         
         _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        
+        CGFloat height = 20;
+        _reactionView = [[ReactionView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-height, self.frame.size.width, height)];
+        [self.contentView addSubview:_reactionView];
+        _reactionView.keepBottomSafeInset.equal = 0;
+        _reactionView.keepLeadingInset.equal = 0;
+        _reactionView.keepTrailingInset.equal = 0;
+        _reactionView.keepHeight.equal = height;
+        [_reactionView setNeedsUpdateConstraints];
+        [_reactionView layoutIfNeeded];
 
     }
     return self;
@@ -559,5 +569,13 @@
     return @(16);
 }
 
+-(void)setReactions:(NSDictionary *)reactions {
+    _reactions = reactions;
+    [_reactionView bindWithReactions:reactions];
+}
+
+-(void)showEmojiViewIfNeeded {
+    
+}
 
 @end

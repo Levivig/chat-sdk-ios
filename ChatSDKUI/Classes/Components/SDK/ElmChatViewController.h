@@ -90,6 +90,8 @@
 -(void) removeMessage: (id<PMessage>) message;
 -(void) reloadDataForMessage: (id<PMessage>) message;
 
+-(id<PElmMessage>) messageForIndexPath: (NSIndexPath *) path;
+
 -(void) hideKeyboard;
 -(void) setAudioEnabled: (BOOL) enabled;
 
