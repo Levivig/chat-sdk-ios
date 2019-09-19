@@ -103,8 +103,20 @@
         } else {
             [dict setObject:obj forKey:key];
         }
+        if (idx == reactions.count) {
+            UIStackView *stackview = [self getRowViewWithReactions:dict withAddButton:row == 0];
+            [_stackView addArrangedSubview:stackview];
+        }
         idx++;
     }];
+}
+
+-(void)showAddButton {
+    for (UIView* view in _stackView.arrangedSubviews) {
+        [view removeFromSuperview];
+    }
+    UIStackView *stackview = [self getRowViewWithReactions:@{} withAddButton:true];
+    [_stackView addArrangedSubview:stackview];
 }
 
 -(void)setAlignment:(ReactionViewAlignment)alignment {

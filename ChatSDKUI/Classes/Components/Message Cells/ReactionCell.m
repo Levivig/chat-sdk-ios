@@ -40,6 +40,7 @@
 - (void)bindWithEmoji:(NSString *)emoji_ count:(NSNumber*)count_ isSelected:(BOOL)isSelected {
     emoji = emoji_;
     count = count_;
+    [self setIsSelected:isSelected];
     NSString *text;
     if ([count_ isEqualToNumber:[[NSNumber alloc] initWithInt:1]] || [count_ isEqualToNumber:[[NSNumber alloc] initWithInt:-1]]) {
         text = [NSString stringWithFormat:@"%@", emoji];
@@ -80,12 +81,12 @@
         return;
     }
     
-    [self setIsSelected:!_isSelected];
     if (_isSelected) {
         [self.delegate didDeselectEmoji:emoji];
     } else {
         [self.delegate didSelectEmoji:emoji];
     }
+    [self setIsSelected:!_isSelected];
 }
 
 @end

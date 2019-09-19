@@ -70,13 +70,15 @@
         
         _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showEmojiViewIfNeeded)];
+        [self addGestureRecognizer:longPress];
         
         CGRect frame = CGRectMake(0, self.frame.size.height-height, self.frame.size.width, height);
         BOOL isMine = [_message.userModel isEqual:BChatSDK.currentUser];
         ReactionViewAlignment alignment = isMine ? ReactionViewAlignmentRight : ReactionViewAlignmentLeft;
         _reactionView = [[ReactionView alloc] initWithFrame:frame alignment:alignment];
         [self.contentView addSubview:_reactionView];
-        _reactionView.keepBottomInset.equal = 8;
+        _reactionView.keepBottomInset.equal = 4;
         _reactionView.keepLeadingInset.equal = 0;
         _reactionView.keepTrailingInset.equal = 0;
         _reactionView.keepHeight.equal = height;
@@ -589,7 +591,10 @@
 }
 
 -(void)showEmojiViewIfNeeded {
-    
+    if ([_reactions count] == 0) {
+        _showEmojiPicker = true;
+        [_reactionView showAddButton];
+    }
 }
 
 - (void)didSelectEmoji:(NSString *)emoji {
