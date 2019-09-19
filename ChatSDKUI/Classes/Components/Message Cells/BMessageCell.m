@@ -12,7 +12,10 @@
 #import <ChatSDK/Core.h>
 #import <ChatSDK/PElmMessage.h>
 
-@implementation BMessageCell
+@implementation BMessageCell {
+    CGFloat height;
+    int numberOfItemsPerRow;
+}
 
 @synthesize bubbleImageView;
 @synthesize message = _message;
@@ -20,6 +23,8 @@
 
 -(instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
+    height = 20;
+    numberOfItemsPerRow = 5;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
@@ -65,13 +70,17 @@
         
         _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         
-        CGFloat height = 20;
-        _reactionView = [[ReactionView alloc] initWithFrame:CGRectMake(0, self.frame.size.height-height, self.frame.size.width, height)];
+        
+        CGRect frame = CGRectMake(0, self.frame.size.height-height, self.frame.size.width, height);
+        BOOL isMine = [_message.userModel isEqual:BChatSDK.currentUser];
+        ReactionViewAlignment alignment = isMine ? ReactionViewAlignmentRight : ReactionViewAlignmentLeft;
+        _reactionView = [[ReactionView alloc] initWithFrame:frame alignment:alignment];
         [self.contentView addSubview:_reactionView];
-        _reactionView.keepBottomSafeInset.equal = 0;
+        _reactionView.keepBottomInset.equal = 8;
         _reactionView.keepLeadingInset.equal = 0;
         _reactionView.keepTrailingInset.equal = 0;
         _reactionView.keepHeight.equal = height;
+        [_reactionView setDelegate:self];
         [_reactionView setNeedsUpdateConstraints];
         [_reactionView layoutIfNeeded];
 
@@ -130,9 +139,11 @@
     BOOL isMine = message.senderIsMe;
     if (isMine) {
         [self setReadStatus:message.messageReadStatus];
+        [_reactionView setAlignment:ReactionViewAlignmentRight];
     }
     else {
         [self setReadStatus:bMessageReadStatusHide];
+        [_reactionView setAlignment:ReactionViewAlignmentLeft];
     }
     
     bMessagePos position = message.messagePosition;
@@ -571,11 +582,26 @@
 
 -(void)setReactions:(NSDictionary *)reactions {
     _reactions = reactions;
+    _reactionView.keepHeight.equal = ceil(((CGFloat)[_reactions count]) / numberOfItemsPerRow) * height;
+    [_reactionView setNeedsUpdateConstraints];
+    [_reactionView layoutIfNeeded];
     [_reactionView bindWithReactions:reactions];
 }
 
 -(void)showEmojiViewIfNeeded {
     
+}
+
+- (void)didSelectEmoji:(NSString *)emoji {
+    [self.reactionDelegate didSelectEmoji:emoji forMessageID:_message.entityID];
+}
+
+- (void)didDeselectEmoji:(NSString *)emoji {
+    [self.reactionDelegate didDeSelectEmoji:emoji forMessageID:_message.entityID];
+}
+
+- (void)didSelectAddButton {
+    [self.reactionDelegate didSelectAddButtonForMessageID:_message.entityID];
 }
 
 @end

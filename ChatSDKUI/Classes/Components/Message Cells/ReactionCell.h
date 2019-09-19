@@ -6,12 +6,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ReactionCellSelectionDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ReactionCell : UILabel
 
--(void)bindWithEmoji:(NSString*)emoji count:(int)count;
+@property (nonatomic) BOOL isSelected;
+@property (nonatomic) id<ReactionCellSelectionDelegate> delegate;
+
+- (void)bindWithEmoji:(NSString *)emoji_ count:(NSNumber*)count isSelected:(BOOL)isSelected;
 
 @end
 

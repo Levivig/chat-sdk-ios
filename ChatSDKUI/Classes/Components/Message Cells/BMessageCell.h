@@ -10,6 +10,8 @@
 #import <ChatSDK/BMessageDelegate.h>
 #import <ChatSDK/PElmMessage.h>
 #import <ChatSDK/ReactionView.h>
+#import <ChatSDK/ReactionCellSelectionDelegate.h>
+#import "BMessageReactionDelegate.h"
 
 // Size of the speech bubble tail
 #define bTailSize 5.0
@@ -31,7 +33,7 @@
 #define bProfilePictureDiameter 30
 #define bMessageMarginX 70 // So it doesn't overlap the time stamp
 
-@interface BMessageCell : UITableViewCell<BMessageDelegate> {
+@interface BMessageCell : UITableViewCell<BMessageDelegate, ReactionCellSelectionDelegate> {
     UIImage * _meBubbleImage;
     UIImage * _replyBubbleImage;
     UIImageView * _profilePicture;
@@ -49,6 +51,7 @@
 @property (nonatomic, strong) NSDictionary *reactions;
 @property (nonatomic) BOOL showEmojiPicker;
 @property (nonatomic, readwrite) ReactionView *reactionView;
+@property (nonatomic) id<BMessageReactionDelegate> reactionDelegate;
 
 // Let us open the user profile view
 @property (nonatomic, weak) UINavigationController * navigationController;
