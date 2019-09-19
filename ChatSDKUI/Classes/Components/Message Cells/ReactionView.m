@@ -64,6 +64,8 @@
         ReactionCell *addButton = [[ReactionCell alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
         [addButton setDelegate:self.delegate];
         [addButton bindWithEmoji:@"+" count:[[NSNumber alloc] initWithInt:-1] isSelected:false];
+        [addButton setLeftInset:8.0];
+        [addButton setRightInset:8.0];
         [view addArrangedSubview:addButton];
     }
     

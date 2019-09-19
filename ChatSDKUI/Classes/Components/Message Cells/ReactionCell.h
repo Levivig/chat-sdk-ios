@@ -15,6 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL isSelected;
 @property (nonatomic) id<ReactionCellSelectionDelegate> delegate;
 
+@property (nonatomic) CGFloat leftInset;
+@property (nonatomic) CGFloat rightInset;
+@property (nonatomic) CGFloat topInset;
+@property (nonatomic) CGFloat bottomInset;
+
 - (void)bindWithEmoji:(NSString *)emoji_ count:(NSNumber*)count isSelected:(BOOL)isSelected;
 
 @end

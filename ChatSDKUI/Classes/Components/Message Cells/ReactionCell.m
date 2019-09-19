@@ -8,11 +8,6 @@
 #import "ReactionCell.h"
 
 @implementation ReactionCell {
-    CGFloat leftInset;
-    CGFloat rightInset;
-    CGFloat topInset;
-    CGFloat bottomInset;
-    
     UIColor *selectedColor;
     UIColor *notSelectedColor;
     
@@ -22,10 +17,10 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
-    leftInset = 5.0;
-    rightInset = 5.0;
-    topInset = 5.0;
-    bottomInset = 5.0;
+    _leftInset = 5.0;
+    _rightInset = 5.0;
+    _topInset = 5.0;
+    _bottomInset = 5.0;
     
     selectedColor = [[UIColor alloc] initWithRed:0.75 green:0.75 blue:0.75 alpha:1.0];
     notSelectedColor = [[UIColor alloc] initWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
@@ -56,12 +51,12 @@
 }
 
 - (void)drawTextInRect:(CGRect)rect {
-    [super drawTextInRect: CGRectInset(rect, leftInset, topInset) ];
+    [super drawTextInRect: CGRectInset(rect, _leftInset, _topInset) ];
 }
 
 - (CGSize)intrinsicContentSize {
     CGSize size = [super intrinsicContentSize];
-    return CGSizeMake(size.width + leftInset + rightInset, size.height + topInset + bottomInset);
+    return CGSizeMake(size.width + _leftInset + _rightInset, size.height + _topInset + _bottomInset);
 }
 
 - (void)drawRect:(CGRect)rect {
