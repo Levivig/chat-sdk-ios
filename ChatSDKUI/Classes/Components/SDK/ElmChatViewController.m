@@ -485,6 +485,9 @@
         
         if (!_imageViewNavigationController) {
             _imageViewNavigationController = [BChatSDK.ui imageViewNavigationController];
+            [_imageViewNavigationController.navigationBar setTintColor:[UIColor blackColor]];
+            [_imageViewNavigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
+//            [_imageViewNavigationController.navigationBar setcolor]
         }
         
         // TODO: Refactor this to use the JSON keys
