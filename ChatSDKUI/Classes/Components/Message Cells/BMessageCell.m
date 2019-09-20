@@ -70,7 +70,7 @@
         
         _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showEmojiViewIfNeeded)];
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showEmojiViewIfNeeded:)];
         [self addGestureRecognizer:longPress];
         
         CGRect frame = CGRectMake(0, self.frame.size.height-height, self.frame.size.width, height);
@@ -78,7 +78,7 @@
         ReactionViewAlignment alignment = isMine ? ReactionViewAlignmentRight : ReactionViewAlignmentLeft;
         _reactionView = [[ReactionView alloc] initWithFrame:frame alignment:alignment];
         [self.contentView addSubview:_reactionView];
-        _reactionView.keepBottomInset.equal = 4;
+        _reactionView.keepVerticalInsets.equal = 4;
         _reactionView.keepLeadingInset.equal = 0;
         _reactionView.keepTrailingInset.equal = 0;
         _reactionView.keepHeight.equal = height;
@@ -147,6 +147,7 @@
         [self setReadStatus:bMessageReadStatusHide];
         [_reactionView setAlignment:ReactionViewAlignmentLeft];
     }
+    _reactionView.keepVerticalInsets.equal = self.bubbleHeight + 4.0;
     
     bMessagePos position = message.messagePosition;
     id<PElmMessage> nextMessage = message.nextMessage;
@@ -590,11 +591,15 @@
     [_reactionView bindWithReactions:reactions];
 }
 
--(void)showEmojiViewIfNeeded {
-    if ([_reactions count] == 0) {
-        _showEmojiPicker = true;
-        [_reactionView showAddButton];
-    }
+-(void)showEmojiViewIfNeeded:(UILongPressGestureRecognizer*)sender {
+//    if (sender.state == UIGestureRecognizerStateRecognized && [_reactions count] == 0) {
+//        _showEmojiPicker = true;
+//        [self.reactionDelegate showAddButtonForMessageID:_message.entityID];
+//        _reactionView.keepHeight.equal = height;
+//        [_reactionView setNeedsUpdateConstraints];
+//        [_reactionView layoutIfNeeded];
+//        [_reactionView showAddButton];
+//    }
 }
 
 - (void)didSelectEmoji:(NSString *)emoji {

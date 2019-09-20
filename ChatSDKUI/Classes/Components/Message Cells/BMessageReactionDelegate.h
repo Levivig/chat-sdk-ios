@@ -10,6 +10,8 @@
 
 @protocol BMessageReactionDelegate <NSObject>
 
+- (void)showAddButtonForMessageID:(NSString*)messageId;
+
 - (void)didSelectAddButtonForMessageID:(NSString*)messageId;
 - (void)didSelectEmoji:(NSString*)emoji forMessageID:(NSString*)messageId;
 - (void)didDeSelectEmoji:(NSString*)emoji forMessageID:(NSString*)messageId;

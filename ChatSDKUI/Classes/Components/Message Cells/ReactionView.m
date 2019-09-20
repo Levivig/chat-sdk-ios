@@ -51,6 +51,17 @@
     _stackView.keepTopInset.equal = 0;
 }
 
+-(ReactionCell*)getAddButton {
+    CGRect frame = CGRectMake(0, 0, 20, 20);
+    ReactionCell *addButton = [[ReactionCell alloc] initWithFrame:frame];
+    [addButton setDelegate:self.delegate];
+    [addButton bindWithEmoji:@"+" count:[[NSNumber alloc] initWithInt:-1] isSelected:false];
+    [addButton setLeftInset:8.0];
+    [addButton setRightInset:8.0];
+    [addButton setFrame:frame];
+    return addButton;
+}
+
 -(UIStackView*)getRowViewWithReactions:(NSDictionary*)reactions withAddButton:(BOOL)withAddButton {
     CGRect frame = CGRectMake(0, 0, 125, 20);
     UIStackView *view = [[UIStackView alloc] initWithFrame:frame];
@@ -61,11 +72,7 @@
     [view setTranslatesAutoresizingMaskIntoConstraints:false];
     
     if (withAddButton) {
-        ReactionCell *addButton = [[ReactionCell alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-        [addButton setDelegate:self.delegate];
-        [addButton bindWithEmoji:@"+" count:[[NSNumber alloc] initWithInt:-1] isSelected:false];
-        [addButton setLeftInset:8.0];
-        [addButton setRightInset:8.0];
+        ReactionCell *addButton = [self getAddButton];
         [view addArrangedSubview:addButton];
     }
     
@@ -94,7 +101,7 @@
     __block int idx = 1;
     __block NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     [reactions enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        if (idx == numberOfItemsPerRow) {
+        if (idx == numberOfItemsPerRow+1) {
             UIStackView *stackview = [self getRowViewWithReactions:dict withAddButton:row == 0];
             [_stackView addArrangedSubview:stackview];
             dict = [[NSMutableDictionary alloc] init];
@@ -102,21 +109,22 @@
             row++;
         } else {
             [dict setObject:obj forKey:key];
+            idx++;
         }
-        if (idx == reactions.count) {
-            UIStackView *stackview = [self getRowViewWithReactions:dict withAddButton:row == 0];
-            [_stackView addArrangedSubview:stackview];
-        }
-        idx++;
     }];
+    UIStackView *stackview = [self getRowViewWithReactions:dict withAddButton:row == 0 && dict.count > 0];
+    [_stackView addArrangedSubview:stackview];
 }
 
 -(void)showAddButton {
-    for (UIView* view in _stackView.arrangedSubviews) {
-        [view removeFromSuperview];
-    }
-    UIStackView *stackview = [self getRowViewWithReactions:@{} withAddButton:true];
-    [_stackView addArrangedSubview:stackview];
+    __weak __block typeof(self) safeSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [safeSelf layoutIfNeeded];
+        for (UIView* view in safeSelf.stackView.arrangedSubviews) {
+            [view removeFromSuperview];
+        }
+        [safeSelf.stackView addArrangedSubview:[safeSelf getRowViewWithReactions:@{} withAddButton:true]];
+    });
 }
 
 -(void)setAlignment:(ReactionViewAlignment)alignment {

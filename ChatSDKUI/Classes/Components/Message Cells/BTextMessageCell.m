@@ -28,6 +28,7 @@
         textView.editable = NO;
         textView.userInteractionEnabled = YES;
         textView.scrollEnabled = YES;
+        [textView setSelectable:false];
         // Get rid of padding and margin
         textView.textContainer.lineFragmentPadding = 0;
         textView.textContainerInset = UIEdgeInsetsZero;
