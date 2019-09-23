@@ -585,21 +585,22 @@
 
 -(void)setReactions:(NSDictionary *)reactions {
     _reactions = reactions;
-    _reactionView.keepHeight.equal = ceil(((CGFloat)[_reactions count]) / numberOfItemsPerRow) * height;
+    CGFloat reactionViewheight = ceil(((CGFloat)[_reactions count]) / numberOfItemsPerRow) * height;
+    _reactionView.keepHeight.equal = reactionViewheight == 0 ? height : reactionViewheight;
     [_reactionView setNeedsUpdateConstraints];
     [_reactionView layoutIfNeeded];
-    [_reactionView bindWithReactions:reactions];
+    [_reactionView bindWithReactions:reactions showAddButton:_showEmojiPicker];
 }
 
 -(void)showEmojiViewIfNeeded:(UILongPressGestureRecognizer*)sender {
-//    if (sender.state == UIGestureRecognizerStateRecognized && [_reactions count] == 0) {
-//        _showEmojiPicker = true;
-//        [self.reactionDelegate showAddButtonForMessageID:_message.entityID];
-//        _reactionView.keepHeight.equal = height;
-//        [_reactionView setNeedsUpdateConstraints];
-//        [_reactionView layoutIfNeeded];
-//        [_reactionView showAddButton];
-//    }
+    if (sender.state == UIGestureRecognizerStateRecognized && [_reactions count] == 0) {
+        _showEmojiPicker = true;
+        _reactionView.keepHeight.equal = height;
+        [_reactionView setNeedsUpdateConstraints];
+        [_reactionView layoutIfNeeded];
+        [_reactionView showAddButton];
+        [self.reactionDelegate showAddButtonForMessageID:_message.entityID];
+    }
 }
 
 - (void)didSelectEmoji:(NSString *)emoji {

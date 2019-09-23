@@ -13,6 +13,8 @@
     CGFloat rightInset;
     
     int numberOfItemsPerRow;
+    
+    ReactionViewAlignment alignment;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame alignment:(ReactionViewAlignment)alignment
@@ -23,6 +25,7 @@
         leftInset = 50;
         rightInset = 10;
         numberOfItemsPerRow = 5;
+        self.alignment = alignment;
         
         [self setTranslatesAutoresizingMaskIntoConstraints:false];
         [self initStackViewWithAlignment:alignment];
@@ -54,8 +57,8 @@
 -(ReactionCell*)getAddButton {
     CGRect frame = CGRectMake(0, 0, 20, 20);
     ReactionCell *addButton = [[ReactionCell alloc] initWithFrame:frame];
-    [addButton setDelegate:self.delegate];
     [addButton bindWithEmoji:@"+" count:[[NSNumber alloc] initWithInt:-1] isSelected:false];
+    [addButton setDelegate:self.delegate];
     [addButton setLeftInset:8.0];
     [addButton setRightInset:8.0];
     [addButton setFrame:frame];
@@ -94,6 +97,12 @@
 }
 
 -(void)bindWithReactions:(NSDictionary*)reactions {
+    if (reactions.count > 0) {
+        [self bindWithReactions:reactions showAddButton:false];
+    }
+}
+
+-(void)bindWithReactions:(NSDictionary*)reactions showAddButton:(BOOL)showAddButton {
     for (UIView* view in _stackView.arrangedSubviews) {
         [view removeFromSuperview];
     }
@@ -112,19 +121,20 @@
             idx++;
         }
     }];
-    UIStackView *stackview = [self getRowViewWithReactions:dict withAddButton:row == 0 && dict.count > 0];
+    UIStackView *stackview = [self getRowViewWithReactions:dict withAddButton:row == 0 && dict.count > 0 || dict.count == 0 && showAddButton];
     [_stackView addArrangedSubview:stackview];
 }
 
 -(void)showAddButton {
-    __weak __block typeof(self) safeSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [safeSelf layoutIfNeeded];
-        for (UIView* view in safeSelf.stackView.arrangedSubviews) {
-            [view removeFromSuperview];
-        }
-        [safeSelf.stackView addArrangedSubview:[safeSelf getRowViewWithReactions:@{} withAddButton:true]];
-    });
+//    [_stackView removeFromSuperview];
+//    [self initStackViewWithAlignment:alignment];
+//    
+//    UIView *view = [self getAddButton];
+//    [_stackView addArrangedSubview: view];
+//    _stackView.keepHeight.equal = 22;
+//    _stackView.keepWidth.equal = 30;
+//    [_stackView setNeedsUpdateConstraints];
+//    [_stackView layoutIfNeeded];
 }
 
 -(void)setAlignment:(ReactionViewAlignment)alignment {

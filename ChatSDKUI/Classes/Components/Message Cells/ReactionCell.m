@@ -33,6 +33,7 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap)];
         [self addGestureRecognizer:tap];
         [self setUserInteractionEnabled:true];
+        [self setTranslatesAutoresizingMaskIntoConstraints:false];
     }
     return self;
 }

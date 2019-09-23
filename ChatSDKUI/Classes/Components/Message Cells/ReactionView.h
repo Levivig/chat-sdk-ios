@@ -24,6 +24,7 @@ typedef enum : NSUInteger {
 
 - (instancetype)initWithFrame:(CGRect)frame alignment:(ReactionViewAlignment)alignment;
 - (void)bindWithReactions:(NSDictionary*)reactions;
+-(void)bindWithReactions:(NSDictionary*)reactions showAddButton:(BOOL)showAddButton;
 - (void)setAlignment:(ReactionViewAlignment)alignment;
 -(void)showAddButton;
 
