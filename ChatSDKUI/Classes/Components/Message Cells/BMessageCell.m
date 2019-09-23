@@ -615,4 +615,9 @@
     [self.reactionDelegate didSelectAddButtonForMessageID:_message.entityID];
 }
 
+- (void)setShowEmojiPicker:(BOOL)showEmojiPicker {
+    _showEmojiPicker = showEmojiPicker;
+    [_reactionView bindWithReactions:_reactions showAddButton:_showEmojiPicker];
+}
+
 @end
