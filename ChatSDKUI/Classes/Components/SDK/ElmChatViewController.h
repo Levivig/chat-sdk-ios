@@ -106,4 +106,6 @@
 
 -(void) keyboardWillHide: (NSNotification *) notification;
 
+-(void) scrollToBottomOfTable: (BOOL) animated force: (BOOL) force;
+
 @end
