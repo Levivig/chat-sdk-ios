@@ -23,8 +23,8 @@
 #define bDefaultPublicGroupImage @"icn_100_anonymous_group.png"
 #define bDefaultPlaceholderImage @"icn_300_placeholder.png"
 
-#define bDefaultFontSize 17
-#define bDefaultUserNameLabelSize 14
+#define bDefaultFontSize 12
+#define bDefaultUserNameLabelSize 0
 #define bDefaultTextColor @"000000"
 
 #endif /* BCoreDefines_h */

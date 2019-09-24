@@ -22,6 +22,7 @@
     }
     [self registerFontWithName:@"Poppins-Regular"];
     [self registerFontWithName:@"Poppins-Bold"];
+    [self registerFontWithName:@"Poppins-Medium"];
 }
 
 -(void) registerFontWithName:(NSString*)fontName {

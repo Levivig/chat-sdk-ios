@@ -33,7 +33,7 @@
         textView.textContainer.lineFragmentPadding = 0;
         textView.textContainerInset = UIEdgeInsetsZero;
 
-        textView.font = [UIFont systemFontOfSize:bDefaultFontSize];
+        textView.font = [UIFont fontWithName:@"Poppins-Medium" size:bDefaultFontSize];
         if(BChatSDK.config.messageTextFont) {
             textView.font = BChatSDK.config.messageTextFont;
         }
@@ -69,7 +69,7 @@
 #pragma Cell sizing static methods
 
 +(NSNumber *) messageContentHeight: (id<PElmMessage>) message maxWidth: (float) maxWidth {
-    return @([self getText: message.text heightWithFont:[UIFont systemFontOfSize:bDefaultFontSize] withWidth:[self messageContentWidth:message maxWidth:maxWidth].floatValue]);
+    return @([self getText: message.text heightWithFont:[UIFont fontWithName:@"Poppins-Medium" size:bDefaultFontSize] withWidth:[self messageContentWidth:message maxWidth:maxWidth].floatValue]);
 }
 
 +(NSNumber *) messageContentWidth: (id<PElmMessage>) message maxWidth: (float) maxWidth {
@@ -77,7 +77,7 @@
 }
 
 +(NSValue *) messageBubblePadding: (id<PElmMessage>) message {
-    return [NSValue valueWithUIEdgeInsets:UIEdgeInsetsMake(9.0, 8.0, 9.0, 8.0)];
+    return [NSValue valueWithUIEdgeInsets:UIEdgeInsetsMake(8.0, 8.0, 8.0, 12.0)];
 }
 
 #pragma Text size
@@ -89,7 +89,7 @@
 +(float) getText: (NSString *) text heightWithWidth: (float) width {
     return [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
                               options:NSStringDrawingUsesLineFragmentOrigin
-                           attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:bDefaultFontSize]}
+                           attributes:@{NSFontAttributeName: [UIFont fontWithName:@"Poppins-Medium" size:bDefaultFontSize]}
                               context:Nil].size.height;
 }
 
@@ -106,7 +106,7 @@
 
 +(float) textWidth: (NSString *) text maxWidth: (float) maxWidth {
     if (text) {
-        UIFont * font = [UIFont systemFontOfSize:bDefaultFontSize];
+        UIFont * font = [UIFont fontWithName:@"Poppins-Medium" size:bDefaultFontSize];
         if (font) {
             float width = [text boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX)
                                       options:NSStringDrawingUsesLineFragmentOrigin
