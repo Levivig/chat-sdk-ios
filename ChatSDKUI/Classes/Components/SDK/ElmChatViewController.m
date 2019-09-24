@@ -23,7 +23,9 @@
 
 @end
 
-@implementation ElmChatViewController
+@implementation ElmChatViewController {
+    BOOL isFirstAppearance;
+}
 
 @synthesize tableView;
 @synthesize delegate;
@@ -33,6 +35,7 @@
 
 -(instancetype) initWithDelegate: (id<ElmChatViewDelegate>) delegate_
 {
+    isFirstAppearance = true;
     self.delegate = delegate_;
     self = [super initWithNibName:@"BChatViewController" bundle:[NSBundle uiBundle]];
     if (self) {
@@ -323,7 +326,10 @@
     // The effect that this gives is that the
     // view starts off almost at the bottom and
     // scrolls the last bit animated (viewDidAppear)
-    [self scrollToBottomOfTable:NO force:YES];
+    if (isFirstAppearance) {
+        [self scrollToBottomOfTable:NO force:YES];
+        isFirstAppearance = false;
+    }
     
     [self setChatState:bChatStateActive];
     
