@@ -58,9 +58,10 @@
         _notificationList = [BNotificationObserverList new];
         
         _lazyReloadManager = [[BLazyReloadManager alloc] initWithTableView:tableView messageManager:_messageManager];
+        __weak __block typeof(self) safeSelf = self;
         _lazyReloadManager.loadMoreMessages = ^() {
-            if (self.delegate) {
-                return [self.delegate loadMoreMessages];
+            if (safeSelf.delegate) {
+                return [safeSelf.delegate loadMoreMessages];
             }
             return [RXPromise resolveWithResult:Nil];
         };

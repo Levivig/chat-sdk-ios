@@ -51,7 +51,7 @@
 @property (nonatomic, strong) NSDictionary *reactions;
 @property (nonatomic) BOOL showEmojiPicker;
 @property (nonatomic, readwrite) ReactionView *reactionView;
-@property (nonatomic) id<BMessageReactionDelegate> reactionDelegate;
+@property (nonatomic, weak) id<BMessageReactionDelegate> reactionDelegate;
 
 // Let us open the user profile view
 @property (nonatomic, weak) UINavigationController * navigationController;
