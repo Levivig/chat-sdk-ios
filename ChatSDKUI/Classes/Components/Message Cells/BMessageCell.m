@@ -298,7 +298,9 @@
         if ([[[user meta] objectForKey:@"isAdmin"] boolValue]) {
             [[[BChatSDK shared] messageSelectorDelegate] didSelectAdminUser];
         } else {
-            [[[BChatSDK shared] messageSelectorDelegate] didSelectUserWithEntityId:_message.userModel.entityID];
+            if (_message.thread.type.intValue == bThreadTypePublicGroup || _message.thread.type.intValue == bThreadTypePrivateGroup) {
+                [[[BChatSDK shared] messageSelectorDelegate] didSelectUserWithEntityId:_message.userModel.entityID];
+            }
         }
     }
 }
