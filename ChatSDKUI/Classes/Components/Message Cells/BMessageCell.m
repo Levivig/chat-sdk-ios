@@ -81,7 +81,6 @@
         _reactionView.keepVerticalInsets.equal = 4;
         _reactionView.keepLeadingInset.equal = 0;
         _reactionView.keepTrailingInset.equal = 0;
-        _reactionView.keepHeight.equal = height;
         [_reactionView setDelegate:self];
         [_reactionView setNeedsUpdateConstraints];
         [_reactionView layoutIfNeeded];
@@ -588,8 +587,9 @@
 -(void)setReactions:(NSDictionary *)reactions {
     _reactions = reactions;
     CGFloat reactionViewheight = ceil(((CGFloat)[_reactions count]) / numberOfItemsPerRow) * height;
-    _reactionView.keepHeight.equal = reactionViewheight == 0 ? height : reactionViewheight;
-    [_reactionView setNeedsUpdateConstraints];
+    [_reactionView.keepHeight deactivate];
+    _reactionView.keepHeight.equal = reactionViewheight < 10e-15 ? height : reactionViewheight;
+    [_reactionView setNeedsLayout];
     [_reactionView layoutIfNeeded];
     [_reactionView bindWithReactions:reactions showAddButton:_showEmojiPicker];
 }
@@ -597,8 +597,9 @@
 -(void)showEmojiViewIfNeeded:(UILongPressGestureRecognizer*)sender {
     if (sender.state == UIGestureRecognizerStateRecognized && [_reactions count] == 0) {
         _showEmojiPicker = true;
+        [_reactionView.keepHeight deactivate];
         _reactionView.keepHeight.equal = height;
-        [_reactionView setNeedsUpdateConstraints];
+        [_reactionView setNeedsLayout];
         [_reactionView layoutIfNeeded];
         [_reactionView showAddButton];
         [self.reactionDelegate showAddButtonForMessageID:_message.entityID];

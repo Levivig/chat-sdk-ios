@@ -50,6 +50,7 @@
     }
     [self setText:text];
     [self sizeToFit];
+    [self setUserInteractionEnabled:true];
 }
 
 - (void)drawTextInRect:(CGRect)rect {
