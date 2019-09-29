@@ -700,6 +700,10 @@
 // Move the toolbar up
 -(void) keyboardWillShow: (NSNotification *) notification {
     
+    if (_keyboardVisible) {
+        return;
+    }
+    
     _keyboardVisible = YES;
     
     // Get the keyboard size
