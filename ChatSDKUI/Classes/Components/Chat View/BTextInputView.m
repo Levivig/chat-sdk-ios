@@ -91,7 +91,7 @@
             _textView.contentInset = UIEdgeInsetsMake(-6.0, -4.0, -6.0, 0.0);
         }
         else {
-            _textView.contentInset = UIEdgeInsetsMake(-7.0, -1.0, -7.0, 0.0);
+            _textView.contentInset = UIEdgeInsetsMake(-6.0, -1.0, -6.0, 0.0);
         }
 
         // Constrain the elements
@@ -119,9 +119,9 @@
                 
         _textView.keepLeftOffsetTo(_optionsButton).equal = bMargin;
         _textView.keepRightOffsetTo(_cameraButton).equal = bMargin;
-//        _textView.keepBottomInset.equal = bMargin;
-//        _textView.keepTopInset.equal = bMargin;
-        [_textView keepVerticallyCentered];
+        _textView.keepBottomInset.equal = bMargin;
+        _textView.keepTopInset.equal = bMargin;
+//        [_textView keepVerticallyCentered];
         _textView.translatesAutoresizingMaskIntoConstraints = NO;
 
         // Create a placeholder text label
