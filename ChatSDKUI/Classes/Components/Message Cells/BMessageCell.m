@@ -602,7 +602,7 @@
         [_reactionView setNeedsLayout];
         [_reactionView layoutIfNeeded];
         [_reactionView showAddButton];
-        [self.reactionDelegate showAddButtonForMessageID:_message.entityID];
+        [self.reactionDelegate showAddButtonForMessageID:_message.entityID isLast: _message.nextMessage == nil];
     }
 }
 
