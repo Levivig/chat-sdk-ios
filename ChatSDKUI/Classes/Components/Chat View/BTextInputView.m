@@ -91,13 +91,13 @@
             _textView.contentInset = UIEdgeInsetsMake(-6.0, -4.0, -6.0, 0.0);
         }
         else {
-            _textView.contentInset = UIEdgeInsetsMake(-6.0, -1.0, -6.0, 0.0);
+            _textView.contentInset = UIEdgeInsetsMake(-7.0, -1.0, -7.0, 0.0);
         }
 
         // Constrain the elements
         _optionsButton.keepLeftInset.equal = bMargin +keepRequired;
 
-        _optionsButton.keepBottomInset.equal = 8.0;
+        [_optionsButton keepVerticallyCentered];
         _optionsButton.keepHeight.equal = 24;
         
         // If the user has no chat options available then remove the chat option button width
@@ -106,21 +106,22 @@
         _optionsButton.translatesAutoresizingMaskIntoConstraints = NO;
         
         _sendButton.keepRightInset.equal = bMargin;
-        _sendButton.keepBottomInset.equal = 0;
+        [_sendButton keepVerticallyCentered];
         _sendButton.keepHeight.equal = 40;
         _sendButton.keepWidth.equal = 48;
         _sendButton.translatesAutoresizingMaskIntoConstraints = NO;
         
         _cameraButton.keepRightOffsetTo(_sendButton).equal = bMargin / 2.0;
-        _cameraButton.keepBottomInset.equal = 0;
+        [_cameraButton keepVerticallyCentered];
         _cameraButton.keepHeight.equal = 40;
         _cameraButton.keepWidth.equal = 40;
         _cameraButton.translatesAutoresizingMaskIntoConstraints = NO;
                 
         _textView.keepLeftOffsetTo(_optionsButton).equal = bMargin;
         _textView.keepRightOffsetTo(_cameraButton).equal = bMargin;
-        _textView.keepBottomInset.equal = bMargin;
-        _textView.keepTopInset.equal = bMargin;
+//        _textView.keepBottomInset.equal = bMargin;
+//        _textView.keepTopInset.equal = bMargin;
+        [_textView keepVerticallyCentered];
         _textView.translatesAutoresizingMaskIntoConstraints = NO;
 
         // Create a placeholder text label
@@ -161,6 +162,10 @@
         [self resizeToolbar];
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
 }
 
 -(void) updateInterfaceForReachabilityStateChange {
