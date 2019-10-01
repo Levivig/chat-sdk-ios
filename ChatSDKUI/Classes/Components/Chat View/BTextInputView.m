@@ -528,4 +528,8 @@
     _sendBarDelegate = delegate;
 }
 
+- (void)setInputAccessoryView:(UIView *)view {
+    [_textView setInputAccessoryView:view];
+}
+
 @end

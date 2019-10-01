@@ -19,6 +19,8 @@
 -(void) setMaxLines: (NSInteger) maxLines;
 -(void) setMaxCharacters: (NSInteger) maxCharacters;
 
+-(void) setInputAccessoryView: (UIView*)view;
+
 @end
 
 #endif /* PChatViewSendBar_h */
