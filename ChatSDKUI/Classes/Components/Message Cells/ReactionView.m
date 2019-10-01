@@ -106,9 +106,6 @@
     for (UIView* view in _stackView.arrangedSubviews) {
         [view removeFromSuperview];
     }
-    __block int row = 0;
-    __block int idx = 1;
-    __block NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
     __block NSMutableDictionary *mutable = [[NSMutableDictionary alloc] init];
     [reactions enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
@@ -119,7 +116,9 @@
     NSArray *sortedKeys = [keys sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
         return [a compare:b];
     }];
-    NSMutableArray *sortedValues = [NSMutableArray new];
+    int row = 0;
+    int idx = 1;
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     for(NSString *key in sortedKeys) {
         if (idx == numberOfItemsPerRow+1) {
             UIStackView *stackview = [self getRowViewWithReactions:dict withAddButton:row == 0];
